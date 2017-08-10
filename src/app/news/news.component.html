@@ -1,0 +1,16 @@
+<div *ngFor="let n  of news">
+
+  <div class="panel ">
+
+    <div class="panel-header">
+      {{n.title}}
+    </div>
+
+    <div class="panel-body">
+      {{n.description}}
+    </div>
+
+    <button  (click)="deleteNews()" class="btn btn-danger">Delete</button>
+  </div>
+
+</div>
