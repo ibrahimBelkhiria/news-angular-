@@ -8,7 +8,7 @@ import {AuthenticationService} from './authentication.service';
 @Injectable()
 export class NewsService {
 
-  private uri= 'http://127.0.0.1:8000/api/news/';
+  private uri= 'http://127.0.0.1:8000/api/news';
 
 
 
@@ -16,7 +16,7 @@ export class NewsService {
 
     getNews(): Observable<any[]> {
       const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-       return  this.http.get(this.uri, headers).map(res => <News[]>  res.json() ).catch(this.handelError);
+       return  this.http.get('http://127.0.0.1:8000/api/news', {headers :headers}).map(res => <News[]>  res.json() ).catch(this.handelError);
 
 
     }
@@ -24,7 +24,8 @@ export class NewsService {
     addNews(news: News) {
       const  headers = new Headers();
       headers.append('content-type', 'application/json');
-        return this.http.post(this.uri, JSON.stringify(news), {headers : headers}).map(res => res.json());
+      headers.append('Authorization','Bearer ' + this.authenticationService.token);
+        return this.http.post(this.uri, JSON.stringify(news), {headers : headers}).map(res => res.json()).catch(this.handelError);
     }
 
 
@@ -32,12 +33,14 @@ export class NewsService {
   updateNews(news: News) {
     const  headers = new Headers();
     headers.append('content-type', 'application/json');
+    headers.append('Authorization','Bearer ' + this.authenticationService.token);
     return this.http.put(this.uri + news.id, JSON.stringify(news), {headers : headers}).map(res => res.json());
   }
 
 
   deleteNews(id: any) {
-
+    const  headers = new Headers();
+    headers.append('Authorization','Bearer ' + this.authenticationService.token);
     return this.http.delete(this.uri + id).map(res => res.json());
   }
 

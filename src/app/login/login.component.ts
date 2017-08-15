@@ -8,8 +8,8 @@ import {AuthenticationService} from '../services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-   username;
-   password;
+   username: string;
+   password: string;
   error = '';
   constructor( private router: Router,
                private authenticationService: AuthenticationService) {}
@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
 
 
   login(e) {
-    e.preventDefault();
+       e.preventDefault();
 
     this.authenticationService.login(this.username, this.password)
       .subscribe(result => {
         if (result === true) {
           // login successful
-          this.router.navigate(['/']);
+          this.router.navigate(['/news']);
         } else {
           // login failed
           this.error = 'Username or password is incorrect';

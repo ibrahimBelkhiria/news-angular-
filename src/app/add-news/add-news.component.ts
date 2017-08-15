@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NewsService} from '../services/news.service';
 import {News} from '../news';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-news',
   templateUrl: './add-news.component.html',
@@ -11,19 +11,26 @@ export class AddNewsComponent implements OnInit {
 
   title: string ;
   description: string;
+    error='';
 
-
-  constructor(private _newsService: NewsService) { }
+  constructor(private router:Router ,private _newsService: NewsService) { }
 
   addNews(title, description) {
 
     let news: any;
     news = {title: title, description: description};
-    this._newsService.addNews(news).subscribe(( news => {
+    this._newsService.addNews(news).subscribe(( result => {
 
-      this.title = '';
-      this.description = '';
+      if (result ==true){
+        this.router.navigate(['/news']);
+      }else {
+
+        this.error = 'validation errors!';
+
+      }
     }));
+
+
 
 
   }

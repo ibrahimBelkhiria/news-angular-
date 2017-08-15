@@ -1,4 +1,5 @@
-<div *ngFor="let n  of news">
+
+<div *ngFor="let n  of news.result">
 
   <div class="panel ">
 
@@ -10,7 +11,7 @@
       {{n.description}}
     </div>
 
-    <button  (click)="deleteNews()" class="btn btn-danger">Delete</button>
   </div>
 
 </div>
+

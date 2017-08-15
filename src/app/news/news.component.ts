@@ -22,7 +22,7 @@ export class NewsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getNews();
+      this.getNews();
   }
 
 }
