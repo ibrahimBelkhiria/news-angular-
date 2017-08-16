@@ -20,8 +20,8 @@ export class AddNewsComponent implements OnInit {
     let news: any;
     news = {title: title, description: description};
     this._newsService.addNews(news).subscribe(( result => {
-
-      if (result ==true){
+      console.log(result);
+      if (result.code==0){
         this.router.navigate(['/news']);
       }else {
 

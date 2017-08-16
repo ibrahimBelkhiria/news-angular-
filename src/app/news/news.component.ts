@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NewsService} from '../services/news.service';
 import {News} from '../news';
 
+
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
@@ -10,19 +11,20 @@ import {News} from '../news';
 })
 export class NewsComponent implements OnInit {
 
-  news: News[];
+  news :Array<News>=[];
   errorMessage: string;
   constructor(private _newsService: NewsService) { }
 
   getNews() {
-    this._newsService.getNews().subscribe (
+       this._newsService.getNews().subscribe (
               news => this.news = news, error => this.errorMessage = <any> error);
-  }
+   }
 
 
 
   ngOnInit() {
-      this.getNews();
+
+    this.getNews();
   }
 
 }

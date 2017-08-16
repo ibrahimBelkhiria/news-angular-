@@ -16,8 +16,7 @@ export class NewsService {
 
     getNews(): Observable<any[]> {
       const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-       return  this.http.get('http://127.0.0.1:8000/api/news', {headers :headers}).map(res => <News[]>  res.json() ).catch(this.handelError);
-
+       return  this.http.get('http://127.0.0.1:8000/api/news', {headers :headers}).map(res => <News[]> res.json() ).catch(this.handelError);
 
     }
 
