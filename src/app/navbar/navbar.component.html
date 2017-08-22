@@ -12,9 +12,14 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="active"><a href="">Home</a></li>
-
+        <li><a href="/news-manage">Manage News</a></li>
 
       </ul>
+
+      <ul class="nav navbar-right">
+        <li *ngIf="isLogin" (click)="logout()" class="btn btn-info">Logout</li>
+      </ul>
+
     </div>
   </div>
 </nav>

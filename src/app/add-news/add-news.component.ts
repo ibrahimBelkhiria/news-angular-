@@ -11,21 +11,21 @@ export class AddNewsComponent implements OnInit {
 
   title: string ;
   description: string;
-    error='';
+    error= [];
 
-  constructor(private router:Router ,private _newsService: NewsService) { }
+  constructor(private router: Router , private _newsService: NewsService) { }
 
   addNews(title, description) {
 
     let news: any;
     news = {title: title, description: description};
     this._newsService.addNews(news).subscribe(( result => {
-      console.log(result);
-      if (result.code==0){
+
+      if (result.code === 0) {
         this.router.navigate(['/news']);
       }else {
-
-        this.error = 'validation errors!';
+          console.log(result.message);
+        this.error = result.errors;
 
       }
     }));

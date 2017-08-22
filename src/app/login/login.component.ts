@@ -10,7 +10,8 @@ export class LoginComponent implements OnInit {
 
    username: string;
    password: string;
-  error = '';
+   error: string;
+   fail: boolean;
   constructor( private router: Router,
                private authenticationService: AuthenticationService) {}
 
@@ -26,9 +27,11 @@ export class LoginComponent implements OnInit {
       .subscribe(result => {
         if (result === true) {
           // login successful
+          console.log(result);
           this.router.navigate(['/news']);
         } else {
           // login failed
+          this.fail = true;
           this.error = 'Username or password is incorrect';
 
         }

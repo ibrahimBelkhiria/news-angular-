@@ -10,15 +10,24 @@ export class NewsManageComponent implements OnInit {
 
   title: string ;
   description: string;
-  news: News[];
+  errorMessage: string;
+  news : Array<News>=[];
   constructor(private _newsService: NewsService) { }
 
-
   ngOnInit() {
+    this.getNews();
 
   }
 
-   deleteNews() {
+  getNews(){
+    this._newsService.getNews().subscribe(news =>
+      this.news = news , error => this.errorMessage = <any> error);
+  }
+
+
+   deleteNews(id) {
+        this._newsService.deleteNews(id).subscribe();
+
 
    }
 

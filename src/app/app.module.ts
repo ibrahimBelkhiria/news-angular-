@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import {AuthenticationService} from './services/authentication.service';
 import {AuthGuard} from './auth.guard';
+import {AuthorizeGuard} from './authorize.guard';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -24,9 +25,9 @@ const appRoutes: Routes = [
   {path: 'news-manage', component: NewsManageComponent,
     children: [
       { path: 'add-news', component: AddNewsComponent },
-      { path: 'edit-news' , component: EditNewsComponent }
+      { path: 'edit-news/:id' , component: EditNewsComponent }
 
-  ], canActivate: [AuthGuard]},
+  ], canActivate: [AuthGuard, AuthorizeGuard]},
 ];
 
 
@@ -50,7 +51,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [NewsService, AuthenticationService,AuthGuard],
+  providers: [NewsService, AuthenticationService, AuthGuard, AuthorizeGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
