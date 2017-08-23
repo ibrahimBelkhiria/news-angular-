@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NewsService} from '../services/news.service';
 import {News} from '../news';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-news',
@@ -13,9 +13,9 @@ export class EditNewsComponent implements OnInit {
   private id: number;
   title: string;
   description: string;
-  error: string;
+  errors= [];
 
-  constructor(private _newsService: NewsService, private route: ActivatedRoute) {
+  constructor(private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
     this.id = this.route.snapshot.params['id'];
   }
 
@@ -28,16 +28,9 @@ export class EditNewsComponent implements OnInit {
     news = {title: title, description: description};
     this._newsService.updateNews(news, this.id).subscribe(( result => {
 
-      if (result.code === 0) {
-        console.log(result);
-      } else {
+            this.router.navigate(['news/' + this.id]);
 
-        this.error = 'validation errors!';
-
-      }
-
-
-    }));
+    }), editError => this.errors = editError);
 
 
   }

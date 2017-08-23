@@ -13,9 +13,9 @@
     <label >Password:</label>
     <input type="password" class="form-control" name="password" required="required" [(ngModel)]="password" >
   </div>
+     <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 
   <button type="submit" class="btn btn-primary" >Login</button>
 
 
 </form>
-<div *ngIf="fail" class="alert alert-danger">{{error}}</div>

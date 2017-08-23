@@ -11,7 +11,7 @@ import {News} from '../news';
 })
 export class NewsComponent implements OnInit {
 
-  news : Array<News>=[];
+  news: Array<News>= [];
   errorMessage: string;
   constructor(private _newsService: NewsService) { }
 

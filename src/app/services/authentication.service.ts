@@ -1,7 +1,10 @@
+///<reference path="../../../node_modules/rxjs/add/operator/catch.d.ts"/>
 import { Injectable } from '@angular/core';
 import {Http, Headers, Response, URLSearchParams} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 @Injectable()
 export class AuthenticationService {
   public token: string;
@@ -36,7 +39,7 @@ export class AuthenticationService {
           // return false to indicate failed login
           return false;
         }
-      });
+      }).catch(this.handelError);
   }
 
   logout(): void {
@@ -44,6 +47,13 @@ export class AuthenticationService {
     this.token = null;
     localStorage.removeItem('currentUser');
   }
+
+  private handelError(error: Response) {
+
+    return Observable.throw(error.json() || 'server error');
+
+  }
+
 
 
 

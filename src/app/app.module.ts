@@ -16,12 +16,14 @@ import { HomeComponent } from './home/home.component';
 import {AuthenticationService} from './services/authentication.service';
 import {AuthGuard} from './auth.guard';
 import {AuthorizeGuard} from './authorize.guard';
-
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { ShowNewsComponent } from './show-news/show-news.component';
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'news', component: NewsComponent, canActivate: [AuthGuard]},
+  {path: 'news/:id', component: ShowNewsComponent, canActivate: [AuthGuard]},
   {path: 'news-manage', component: NewsManageComponent,
     children: [
       { path: 'add-news', component: AddNewsComponent },
@@ -43,13 +45,15 @@ const appRoutes: Routes = [
     EditNewsComponent,
     NavbarComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ShowNewsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FlashMessagesModule
   ],
   providers: [NewsService, AuthenticationService, AuthGuard, AuthorizeGuard],
   bootstrap: [AppComponent]

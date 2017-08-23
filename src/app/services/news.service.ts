@@ -3,6 +3,7 @@ import {Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 import {News} from '../news';
 import {AuthenticationService} from './authentication.service';
 @Injectable()
@@ -33,7 +34,7 @@ export class NewsService {
     const  headers = new Headers();
     headers.append('content-type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.authenticationService.token);
-    return this.http.put(this.uri + '/' + id, JSON.stringify(news), {headers : headers}).map(res => res.json());
+    return this.http.put(this.uri + '/' + id, JSON.stringify(news), {headers : headers}).map(res => res.json()).catch(this.handelError);
   }
 
 
@@ -43,10 +44,19 @@ export class NewsService {
     return this.http.delete(this.uri + '/' + id, {headers : headers}).map(res => res.json());
   }
 
+  getNew(id: any): Observable<News[]> {
+    const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+    return  this.http.get(this.uri + '/' + id , {headers : headers}).map(res => res.json() ).catch(this.handelError);
+
+  }
+
+
+
+
 
     private handelError(error: Response) {
 
-        return Observable.throw(error.json().error || 'server error');
+        return Observable.throw(error.json().errors || 'server error');
 
     }
 
