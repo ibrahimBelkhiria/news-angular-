@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
   isLogged() {
 
-    if (localStorage.getItem('currentUser')) {
+    if (localStorage.getItem('currentUser') !== null) {
       return true;
     }else {
       return false;
